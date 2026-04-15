@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For My Love ❤️</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            overflow-x: hidden;
+        }
+
+        /* Floating hearts */
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: -50px;
+            width: 20px;
+            height: 20px;
+            background: red;
+            transform: rotate(45deg);
+            animation: float 6s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-800px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 80px 20px 40px;
+        }
+
+        .section {
+            padding: 40px 20px;
+        }
+
+        .card-love {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .btn-love {
+            background: #ff4b5c;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 25px;
+            border: none;
+        }
+
+        .typing {
+            font-size: 1.1rem;
+            color: #333;
+            min-height: 40px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #333;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hearts" id="hearts"></div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1>I Don’t Want to Lose You ❤️</h1>
+        <p>You are not just part of my life… you are my life.</p>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="section">
+        <div class="container">
+            <div class="card-love">
+                <h3>What I Feel…</h3>
+                <p>I know I made mistakes… but I never stopped loving you.</p>
+                <p>Love is not about perfection… it’s about staying.</p>
+                <p>I still believe in us.</p>
+
+                <!-- Typing animation -->
+                <div class="typing mt-3" id="typingText"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section">
+        <div class="container">
+            <h3 class="text-center text-white mb-4">Our Memories 📸</h3>
+            <div class="row g-3 gallery">
+                <div class="col-12 col-md-4"><img src="https://picsum.photos/400?1" onclick="openModal(this.src)"></div>
+                <div class="col-12 col-md-4"><img src="https://picsum.photos/400?2" onclick="openModal(this.src)"></div>
+                <div class="col-12 col-md-4"><img src="https://picsum.photos/400?3" onclick="openModal(this.src)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL QUESTION -->
+    <section class="section">
+        <div class="container text-center">
+            <div class="card-love">
+                <h3>Do you still feel something? ❤️</h3>
+                <p>No pressure… just honesty.</p>
+                <button class="btn-love m-2" onclick="openLoveModal()">Yes ❤️</button>
+                <button class="btn btn-outline-danger m-2" onclick="openLoveModal()">No 💔</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMAGE MODAL -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOVE MODAL -->
+    <div class="modal fade" id="loveModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-3">
+                <h4>I still love you ❤️</h4>
+                <p>No matter your answer… I still choose you.</p>
+                <a href="tel:+911234567890" class="btn-love mt-2">Call Me ☎️</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('hearts').appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 500);
+
+        // Modal image
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            new bootstrap.Modal(document.getElementById('imageModal')).show();
+        }
+
+        // Love modal + play music
+        function openLoveModal() {
+            const modal = new bootstrap.Modal(document.getElementById('loveModal'));
+            modal.show();
+            document.getElementById('bgMusic').play();
+        }
+
+        // Typing animation
+        const text = "We can fix this… slowly, together. I’m not giving up on us.";
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typingText").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        window.onload = typeWriter;
+    </script>
+
+</body>
+
+</html>
